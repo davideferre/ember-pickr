@@ -274,6 +274,12 @@ const ColorPicker = Component.extend({
     this._setupPickr();
   },
 
+  didUpdateAttrs() {
+    this._super(...arguments);
+    let _value = this.get('value');
+    this._pickr.setColor(this.formatColor(_value));
+  },
+
   _setupPickr() {
     this._options = {
       ...this.getProperties(optionFields),

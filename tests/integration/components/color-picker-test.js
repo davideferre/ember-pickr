@@ -27,6 +27,24 @@ module('Integration | Component | color-picker', function(hooks) {
     );
   });
 
+  test('it re-renders', async function(assert) {
+      this.set('colorValue', '#ffffff');
+      await render(hbs`{{color-picker value=colorValue default=colorValue}}`);
+      await sleep(1000);
+
+      assert.equal(
+        getComputedStyle(this.element.querySelector('.pcr-button')).color,
+        'rgb(255, 255, 255)'
+      );
+
+      this.set('colorValue', '#ff0000');
+      await sleep(1000);
+      assert.equal(
+        getComputedStyle(this.element.querySelector('.pcr-button')).color,
+        'rgb(255, 0, 0)'
+      );
+    });
+
   test('it applies the disabled property', async function(assert) {
     await render(hbs`{{color-picker disabled=true}}`);
     await sleep(1000);
